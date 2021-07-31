@@ -1,6 +1,7 @@
 <script>
 	import Header from './components/Header.svelte';
 	import Footer from './components/Footer.svelte';
+	import PollList from './components/PollList.svelte';
 	import Tabs from './shared/Tabs.svelte';
 	import CreatePollForm from './components/CreatePollForm.svelte';
 	
@@ -11,6 +12,25 @@ const tabChange=(e)=>{
 	activeItem=e.detail;
 }
 
+//polls
+let polls=[
+	{
+		id:1,
+		question:'Python or Javascript',
+		answearA: 'Python',
+		answearB: 'Javascript',
+		votesA:9,
+		votesB:15,
+	},
+];
+
+const handleADD=(e)=>
+{
+	const poll=e.detail;
+	polls=[poll,...polls];
+	console.log(polls);
+	activeItem='Current Polls'
+}
 
 </script>
 
@@ -19,9 +39,9 @@ const tabChange=(e)=>{
 <main>
 	<Tabs {activeItem} {items} on:tabChange={tabChange}/>
 	{#if activeItem==='Current Polls'}
-	<p>Poll list component goes here</p>
+	<PollList  polls={polls} />
 	{:else if activeItem==='Add New Poll'}
-	<CreatePollForm/>
+	<CreatePollForm on:add={handleADD}/>
 	{/if}
 </main>
 <Footer/>
