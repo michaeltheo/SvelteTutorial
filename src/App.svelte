@@ -12,24 +12,11 @@ const tabChange=(e)=>{
 	activeItem=e.detail;
 }
 
-//polls
-let polls=[
-	{
-		id:1,
-		question:'Py or Javascript',
-		answearA: 'Python',
-		answearB: 'Javascript',
-		votesA:9,
-		votesB:15,
-	},
-];
 
 const handleADD=(e)=>
 {
-	const poll=e.detail;
-	polls=[poll,...polls];
-	console.log(polls);
-	activeItem='Current Polls'
+
+	activeItem='Current Polls';
 }
 
 const handleVote=(e)=>
@@ -38,10 +25,10 @@ const handleVote=(e)=>
 	let copiedPolls=[...polls];
 	let upvotedPoll=copiedPolls.find((poll)=>poll.id==id);
 
-	if(option==='a'){
+	if(option === 'a'){
 		upvotedPoll.votesA++;
 	}
-	if(option==='b'){
+	if(option === 'b'){
 		upvotedPoll.votesB++;
 	}
 	polls=copiedPolls;
@@ -54,7 +41,7 @@ const handleVote=(e)=>
 <main>
 	<Tabs {activeItem} {items} on:tabChange={tabChange}/>
 	{#if activeItem==='Current Polls'}
-	<PollList  {polls} on:vote={handleVote}/>
+	<PollList   on:vote={handleVote}/>
 	{:else if activeItem==='Add New Poll'}
 	<CreatePollForm on:add={handleADD}/>
 	{/if}
