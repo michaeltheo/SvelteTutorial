@@ -1,22 +1,32 @@
 <script>
     export let poll;
-
+    import Card from '../shared/Card.svelte';
+    import {createEventDispatcher} from 'svelte';
     //reactive values
     $: totalVotes=poll.votesA+poll.votesB;
+    const dispatch=createEventDispatcher();
+
+    //handling vote
+    const handleVote=(option,id)=>{
+        dispatch('vote',{option,id})
+
+    }
 </script>
 
-<div class="poll">
-    <h3>{poll.question}</h3>
-    <p>totalVotes: {totalVotes}</p>
-    <div class="answear">
-        <div class="percent percent-a"></div>
-        <span>{poll.answearA} ({poll.votesA})</span>
+<Card>
+    <div class="poll">
+        <h3>{poll.question}</h3>
+        <p>totalVotes: {totalVotes}</p>
+        <div class="answear" on:click={()=> handleVote('a',poll.id)}>
+            <div class="percent percent-a"></div>
+            <span>{poll.answearA} ({poll.votesA})</span>
+        </div>
+        <div class="answear" on:click={()=> handleVote('b',poll.id)}>
+            <div class="percent percent-b"></div>
+            <span>{poll.answearB} ({poll.votesB})</span>
+        </div>
     </div>
-    <div class="answear">
-        <div class="percent percent-b"></div>
-        <span>{poll.answearB} ({poll.votesB})</span>
-    </div>
-</div>
+</Card>
 
 
 <style>
@@ -37,7 +47,7 @@
         position: relative;
     }
     .answear:hover{
-        opacity: 0.6;
+        opacity: 2.6;
     }
     span{
         display: inline-block;
