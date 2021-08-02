@@ -1,5 +1,5 @@
 <footer>
-    <div class="copyright">Copyright 2020 FreeMike</div>
+    <div class="copyright">Copyright 2021 FreeMike</div>
 </footer>
 
 <style>

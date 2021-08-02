@@ -2,6 +2,8 @@
 //import { onDestroy, onMount } from 'svelte';
 import PollStore from '../Stores/PollStore.js';
 import PollDetails from './PollDetails.svelte';
+import {fade,slide,scale} from 'svelte/transition'
+import {flip} from 'svelte/animate'
 
 //export let polls=[];
 // const unsub = PollStore.subscribe(data => { 
@@ -20,7 +22,7 @@ import PollDetails from './PollDetails.svelte';
 
 <div class="poll-list">
     {#each $PollStore  as poll (poll.id) }
-    <div>
+    <div in:fade out:scale|local animate:flip={{duration: 500.}}>
         <PollDetails {poll} on:vote  />
     </div>
     {/each}

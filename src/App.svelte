@@ -15,33 +15,22 @@ const tabChange=(e)=>{
 
 const handleADD=(e)=>
 {
-
 	activeItem='Current Polls';
+	console.log("go to Current polls");
 }
 
-const handleVote=(e)=>
-{
-	const {id,option}=e.detail;
-	let copiedPolls=[...polls];
-	let upvotedPoll=copiedPolls.find((poll)=>poll.id==id);
-
-	if(option === 'a'){
-		upvotedPoll.votesA++;
-	}
-	if(option === 'b'){
-		upvotedPoll.votesB++;
-	}
-	polls=copiedPolls;
-}
-
+import {tweened} from 'svelte/motion';
+const value=tweened(0);
 </script>
+
+<button on:click={()=>value.set(1)}>{$value}</button>
 
 
 <Header/>
 <main>
 	<Tabs {activeItem} {items} on:tabChange={tabChange}/>
 	{#if activeItem==='Current Polls'}
-	<PollList   on:vote={handleVote}/>
+	<PollList />
 	{:else if activeItem==='Add New Poll'}
 	<CreatePollForm on:add={handleADD}/>
 	{/if}
@@ -54,3 +43,5 @@ main{
 	margin: 40px auto;
 }
 </style>
+
+<!-- —(••÷[ 𝕗𝐑乇Ⓔ мⒾᛕε ]÷••)— -->
